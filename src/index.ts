@@ -16,6 +16,10 @@ export default {
 		const url = new URL(request.url);
 		const complexity = parseInt(url.searchParams.get('complexity') ?? '0', 10);
 
+		if (complexity > 10000) {
+			return new Response('Stop it.', {status: 418})
+		}
+
 		await new Promise(resolve => setTimeout(resolve, complexity))
 
 		return new Response(`You asked for a complexity of ${complexity}, so here you go!`);
