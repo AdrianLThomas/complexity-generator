@@ -13,6 +13,11 @@
 
 export default {
 	async fetch(request, env, ctx): Promise<Response> {
-		return new Response('Hello World!');
+		const url = new URL(request.url);
+		const complexity = parseInt(url.searchParams.get('complexity') ?? '0', 10);
+
+		await new Promise(resolve => setTimeout(resolve, complexity))
+
+		return new Response(`You asked for a complexity of ${complexity}, so here you go!`);
 	},
 } satisfies ExportedHandler<Env>;
