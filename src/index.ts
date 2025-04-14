@@ -1,23 +1,14 @@
-/**
- * Welcome to Cloudflare Workers! This is your first worker.
- *
- * - Run `npm run dev` in your terminal to start a development server
- * - Open a browser tab at http://localhost:8787/ to see your worker in action
- * - Run `npm run deploy` to publish your worker
- *
- * Bind resources to your worker in `wrangler.jsonc`. After adding bindings, a type definition for the
- * `Env` object can be regenerated with `npm run cf-typegen`.
- *
- * Learn more at https://developers.cloudflare.com/workers/
- */
+const clamp = (n: number, min: number = 0, max: number = 100) => Math.min(100, Math.max(0, n));
 
 export default {
 	async fetch(request, env, ctx): Promise<Response> {
 		const url = new URL(request.url);
-		const complexity = parseInt(url.searchParams.get('complexity') ?? '0', 10);
+		const complexity = clamp(parseInt(url.searchParams.get('complexity') ?? '0', 10), 0, 5000);
+		const errorRate = clamp(parseFloat(url.searchParams.get('error-rate') ?? '0'), 0, 1);
 
-		if (complexity > 10000) {
-			return new Response('Stop it.', {status: 418})
+		// simulate error
+		if (Math.random() < errorRate) {
+			throw new Response(`Ouch! You asked for an error rate of ${errorRate} and you got one!`)
 		}
 
 		await new Promise(resolve => setTimeout(resolve, complexity))
