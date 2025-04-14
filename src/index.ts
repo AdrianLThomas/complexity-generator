@@ -1,4 +1,4 @@
-const clamp = (n: number, min: number = 0, max: number = 100) => Math.min(100, Math.max(0, n));
+const clamp = (n: number, min: number = 0, max: number = 100) => Math.min(max, Math.max(min, n));
 
 export default {
 	async fetch(request, env, ctx): Promise<Response> {
