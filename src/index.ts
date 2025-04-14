@@ -8,7 +8,7 @@ export default {
 
 		// simulate error
 		if (Math.random() < errorRate) {
-			throw new Response(`Ouch! You asked for an error rate of ${errorRate} and you got one!`)
+			return new Response(`Ouch! You asked for an error rate of ${errorRate}, so you got one!`, {status: 500})
 		}
 
 		await new Promise(resolve => setTimeout(resolve, complexity))
