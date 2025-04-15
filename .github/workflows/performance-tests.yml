@@ -4,6 +4,33 @@ on:
   schedule:
     - cron: '0 0 * * *' # every day at 00:00 UTC
   workflow_dispatch: # trigger via UI on demand
+      ENDPOINT:
+        description: 'Endpoint to test'
+        required: true
+        default: 'https://complexity-api.adrian-thomas.com'
+        options:
+          - 'https://complexity-api.adrian-thomas.com'
+    # logLevel:
+    #   description: 'Log level'
+    #   required: true
+    #   default: 'warning'
+    #   type: choice
+    #   options:
+    #     - info
+    #     - warning
+    #     - debug
+    # print_tags:
+    #   description: 'True to print to STDOUT'
+    #   required: true
+    #   type: boolean
+    # tags:
+    #   description: 'Test scenario tags'
+    #   required: true
+    #   type: string
+    # environment:
+    #   description: 'Environment to run tests against'
+    #   type: environment
+    #   required: true
 
 jobs:
   run-test:
