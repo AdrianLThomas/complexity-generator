@@ -32,5 +32,5 @@ jobs:
         with:
           path: test/performance/basic.js
         env:
-          ENDPOINT: ${{ github.event.inputs.endpoint }}
-          ERROR_RATE: ${{ github.event.inputs.error_rate }}
+          ENDPOINT: ${{ inputs.endpoint }}
+          ERROR_RATE: ${{ inputs.error_rate }}
