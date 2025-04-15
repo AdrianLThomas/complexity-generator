@@ -4,37 +4,18 @@ on:
   schedule:
     - cron: '0 0 * * *' # every day at 00:00 UTC
   workflow_dispatch: # trigger via UI on demand
-      ENDPOINT:
+      endpoint:
         description: 'Endpoint to test'
         required: true
         default: 'https://complexity-api.adrian-thomas.com'
         type: choice
         options:
           - 'https://complexity-api.adrian-thomas.com'
-      ERROR_RATE:
+      error_rate:
         description: 'Error rate (between 0 and 1)'
         required: true
         default: '0.01'
-        type: string
-        options:
-          - 'https://complexity-api.adrian-thomas.com'
-    # logLevel:
-    #   description: 'Log level'
-    #   required: true
-    #   default: 'warning'
-    #   type: choice
-    #   options:
-    #     - info
-    #     - warning
-    #     - debug
-    # print_tags:
-    #   description: 'True to print to STDOUT'
-    #   required: true
-    #   type: boolean
-    # tags:
-    #   description: 'Test scenario tags'
-    #   required: true
-    #   type: string
+        type: number
 
 jobs:
   run-test:
@@ -50,3 +31,6 @@ jobs:
         uses: grafana/run-k6-action@v1
         with:
           path: test/performance/basic.js
+        env:
+          ENDPOINT: ${{ github.event.inputs.endpoint }}
+          ERROR_RATE: ${{ github.event.inputs.error_rate }}
