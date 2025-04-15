@@ -1,0 +1,21 @@
+name: k6 Load Test
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # every day at 00:00 UTC
+  workflow_dispatch: # trigger via UI on demand
+
+jobs:
+  run-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup K6
+        uses: grafana/setup-k6-action@v1
+
+      - name: Run K6 test
+        uses: grafana/run-k6-action@v1
+        with:
+          path: test/performance/basic.js
