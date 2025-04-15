@@ -4,18 +4,6 @@ on:
   schedule:
     - cron: '0 0 * * *' # every day at 00:00 UTC
   workflow_dispatch: # trigger via UI on demand
-      endpoint:
-        description: 'Endpoint to test'
-        required: true
-        default: 'https://complexity-api.adrian-thomas.com'
-        type: choice
-        options:
-          - 'https://complexity-api.adrian-thomas.com'
-      error_rate:
-        description: 'Error rate (between 0 and 1)'
-        required: true
-        default: '0.01'
-        type: number
 
 jobs:
   run-test:
@@ -31,6 +19,3 @@ jobs:
         uses: grafana/run-k6-action@v1
         with:
           path: test/performance/basic.js
-        env:
-          ENDPOINT: ${{ inputs.endpoint }}
-          ERROR_RATE: ${{ inputs.error_rate }}
