@@ -11,6 +11,7 @@ export default {
 			throw new Error(`Ouch! You asked for an error rate of ${errorRate}, so you got one!`)
 		}
 
+		// simulate work
 		await new Promise(resolve => setTimeout(resolve, complexity))
 
 		return new Response(`You asked for a complexity of ${complexity}, so here you go!`);
